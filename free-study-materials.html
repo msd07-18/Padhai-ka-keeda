@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Download free high-quality notes, DPPs, PYQs, books, and practice materials for Physics, Chemistry, Mathematics, and Biology." />
+  <meta name="keywords" content="free study materials, notes, DPPs, PYQs, books, physics, chemistry, mathematics, biology" />
+  <meta name="author" content="Free Study Materials" />
+  <title>Free Study Materials — Premium Notes, DPPs & PYQs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===========================
+       RESET & ROOT
+    =========================== */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg:          #0D0D0D;
+      --bg2:         #111111;
+      --bg3:         #161616;
+      --gold:        #FFD54A;
+      --gold-dim:    #FFD54A99;
+      --gold-glow:   0 0 20px #FFD54A55, 0 0 60px #FFD54A22;
+      --glass-bg:    rgba(255,255,255,0.045);
+      --glass-border:rgba(255,213,74,0.18);
+      --text:        #F0F0F0;
+      --muted:       #888;
+      --radius:      16px;
+      --radius-lg:   24px;
+      --radius-pill: 999px;
+      --transition:  0.35s cubic-bezier(.4,0,.2,1);
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ===========================
+       SCROLLBAR
+    =========================== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg2); }
+    ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 99px; }
+
+    /* ===========================
+       LOADER
+    =========================== */
+    #loader {
+      position: fixed; inset: 0;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+
+    .loader-ring {
+      width: 70px; height: 70px;
+      border: 3px solid rgba(255,213,74,0.15);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+    }
+    .loader-text {
+      margin-top: 20px;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      animation: pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+    /* ===========================
+       NAVIGATION
+    =========================== */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 18px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(13,13,13,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,213,74,0.08);
+      transition: var(--transition);
+    }
+    nav.scrolled {
+      padding: 12px 5%;
+      background: rgba(13,13,13,0.92);
+      border-bottom-color: rgba(255,213,74,0.18);
+    }
+
+    .nav-logo {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-logo .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; display: inline-block; box-shadow: var(--gold-glow); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.875rem; font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color var(--transition);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0;
+      width: 0; height: 2px;
+      background: var(--gold);
+      border-radius: 99px;
+      transition: width var(--transition);
+    }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--gold);
+      color: #0D0D0D !important;
+      font-weight: 700 !important;
+      padding: 9px 22px;
+      border-radius: var(--radius-pill);
+      transition: box-shadow var(--transition), transform var(--transition) !important;
+    }
+    .nav-cta:hover { box-shadow: var(--gold-glow); transform: translateY(-2px); }
+    .nav-cta::after { display: none !important; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--text); border-radius: 99px;
+      transition: var(--transition);
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(13,13,13,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 32px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem; font-weight: 600;
+      color: var(--text); text-decoration: none;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--gold); }
+
+    /* ===========================
+       HERO
+    =========================== */
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+      padding: 120px 5% 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ambient background blobs */
+    .hero-blob {
+      position: absolute; border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.18;
+      pointer-events: none;
+      animation: drift 10s ease-in-out infinite alternate;
+    }
+    .hero-blob-1 { width: 480px; height: 480px; background: var(--gold); top: -100px; left: -140px; animation-delay: 0s; }
+    .hero-blob-2 { width: 320px; height: 320px; background: #ff8c42; bottom: -60px; right: -80px; animation-delay: 3s; }
+    .hero-blob-3 { width: 220px; height: 220px; background: var(--gold); top: 40%; left: 50%; transform: translateX(-50%); animation-delay: 6s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    /* Grid overlay */
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image: linear-gradient(rgba(255,213,74,.04) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(255,213,74,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,213,74,0.1);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill);
+      padding: 6px 18px;
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .highlight {
+      color: var(--gold);
+      text-shadow: var(--gold-glow);
+      display: inline-block;
+    }
+
+    .hero-sub {
+      max-width: 580px;
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 44px;
+    }
+
+    .hero-buttons {
+      display: flex; gap: 16px; flex-wrap: wrap; justify-content: center;
+      margin-bottom: 70px;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 30px;
+      border-radius: var(--radius-pill);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative; overflow: hidden;
+      border: none; text-decoration: none;
+    }
+    .btn::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: rgba(255,255,255,0.12);
+      border-radius: inherit;
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .btn:hover::after { opacity: 1; }
+    .btn:hover { transform: translateY(-3px); }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #0D0D0D;
+      box-shadow: 0 4px 24px rgba(255,213,74,0.3);
+    }
+    .btn-primary:hover { box-shadow: var(--gold-glow), 0 8px 32px rgba(255,213,74,0.4); }
+
+    .btn-outline {
+      background: var(--glass-bg);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+
+    /* Ripple */
+    .ripple-container { position: relative; overflow: hidden; }
+    .ripple {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.35);
+      transform: scale(0);
+      animation: rippleOut 0.55s linear;
+      pointer-events: none;
+    }
+    @keyframes rippleOut { to { transform: scale(4); opacity: 0; } }
+
+    .hero-stats {
+      display: flex; gap: 48px; flex-wrap: wrap; justify-content: center;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800; font-size: 2rem;
+      color: var(--gold);
+      display: block;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
+
+    /* ===========================
+       SECTIONS SHARED
+    =========================== */
+    section { padding: 100px 5%; }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 3px;
+      text-transform: uppercase; margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+    }
+    .section-title span { color: var(--gold); }
+    .section-sub { color: var(--muted); max-width: 560px; font-size: 1rem; line-height: 1.7; }
+
+    .section-header { margin-bottom: 60px; }
+
+    /* ===========================
+       SEARCH
+    =========================== */
+    .search-section {
+      padding: 30px 5% 80px;
+      background: var(--bg2);
+      border-top: 1px solid rgba(255,213,74,0.06);
+      border-bottom: 1px solid rgba(255,213,74,0.06);
+    }
+    .search-wrapper {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .search-wrapper h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem; font-weight: 700;
+      margin-bottom: 24px;
+    }
+    .search-bar {
+      display: flex; gap: 0;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+    .search-bar:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(255,213,74,0.1);
+    }
+    .search-bar input {
+      flex: 1; background: none; border: none; outline: none;
+      padding: 16px 24px;
+      font-size: 0.95rem; color: var(--text);
+      font-family: 'Inter', sans-serif;
+    }
+    .search-bar input::placeholder { color: var(--muted); }
+    .search-bar button {
+      background: var(--gold); border: none; cursor: pointer;
+      padding: 0 28px;
+      font-size: 1.1rem;
+      transition: background var(--transition);
+      border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+    }
+    .search-bar button:hover { background: #ffe07a; }
+
+    .search-filters {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      justify-content: center; margin-top: 18px;
+    }
+    .filter-chip {
+      padding: 6px 18px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem; font-weight: 600;
+      color: var(--muted); cursor: pointer;
+      transition: all var(--transition);
+      font-family: 'Poppins', sans-serif;
+    }
+    .filter-chip:hover, .filter-chip.active {
+      background: rgba(255,213,74,0.12);
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* Search results area */
+    #search-results {
+      margin-top: 28px; display: none; text-align: left;
+    }
+    .search-result-item {
+      padding: 14px 20px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      margin-bottom: 10px;
+      display: flex; align-items: center; gap: 14px;
+      transition: border-color var(--transition);
+      cursor: pointer;
+    }
+    .search-result-item:hover { border-color: var(--gold); }
+    .search-result-item .icon { font-size: 1.4rem; }
+    .search-result-item .info h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+    .search-result-item .info p { font-size: 0.78rem; color: var(--muted); }
+    .no-results { text-align: center; color: var(--muted); padding: 24px 0; font-size: 0.9rem; }
+
+    /* ===========================
+       CATEGORIES
+    =========================== */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 18px;
+    }
+    .category-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+      text-decoration: none; color: inherit;
+      display: block;
+    }
+    .category-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(circle at center, rgba(255,213,74,0.08) 0%, transparent 70%);
+      opacity: 0; transition: opacity var(--transition);
+    }
+    .category-card:hover { border-color: var(--gold); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(255,213,74,0.1); }
+    .category-card:hover::before { opacity: 1; }
+
+    .cat-icon { font-size: 2.4rem; margin-bottom: 14px; display: block; }
+    .cat-name {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .cat-count { font-size: 0.75rem; color: var(--muted); font-weight: 500; }
+    .cat-tag {
+      display: inline-block; margin-top: 12px;
+      padding: 3px 12px;
+      background: rgba(255,213,74,0.1);
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 0.5px;
+    }
+
+    /* ===========================
+       FEATURED MATERIALS
+    =========================== */
+    .featured-section { background: var(--bg2); }
+    .materials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .material-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: all var(--transition);
+      backdrop-filter: blur(12px);
+      display: flex; flex-direction: column;
+    }
+    .material-card:hover { border-color: var(--gold); transform: translateY(-8px); box-shadow: 0 28px 80px rgba(255,213,74,0.12); }
+
+    .material-thumb {
+      height: 180px;
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .material-thumb .thumb-icon { font-size: 4rem; opacity: 0.3; }
+    .material-thumb .thumb-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity var(--transition);
+      background: rgba(255,213,74,0.08);
+    }
+    .material-card:hover .thumb-overlay { opacity: 1; }
+    .material-badge {
+      position: absolute; top: 14px; left: 14px;
+      padding: 4px 12px;
+      background: var(--gold); color: #0D0D0D;
+      border-radius: var(--radius-pill);
+      font-size: 0.72rem; font-weight: 800;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 0.5px;
+    }
+
+    .material-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+    .material-subject {
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--gold); letter-spacing: 2px;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .material-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      line-height: 1.4; margin-bottom: 10px;
+    }
+    .material-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 18px; flex: 1; }
+    .material-meta {
+      display: flex; align-items: center; gap: 14px;
+      font-size: 0.78rem; color: var(--muted);
+      margin-bottom: 18px;
+    }
+    .material-meta span { display: flex; align-items: center; gap: 4px; }
+    .btn-download {
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px;
+      background: rgba(255,213,74,0.1);
+      border: 1px solid rgba(255,213,74,0.25);
+      border-radius: var(--radius);
+      color: var(--gold);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 0.88rem;
+      cursor: pointer;
+      transition: all var(--transition);
+      text-decoration: none;
+      width: 100%;
+    }
+    .btn-download:hover { background: var(--gold); color: #0D0D0D; box-shadow: var(--gold-glow); }
+
+    /* Thumb colour variants */
+    .thumb-physics { background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 100%); }
+    .thumb-chem { background: linear-gradient(135deg, #0f1a0f 0%, #1a2e1a 100%); }
+    .thumb-math { background: linear-gradient(135deg, #1a0f0f 0%, #2e1a1a 100%); }
+    .thumb-bio { background: linear-gradient(135deg, #0f1a1a 0%, #1a2e2e 100%); }
+    .thumb-pyq { background: linear-gradient(135deg, #1a1500 0%, #2e2500 100%); }
+    .thumb-dpp { background: linear-gradient(135deg, #1a000f 0%, #2e001a 100%); }
+
+    /* ===========================
+       WHY CHOOSE US
+    =========================== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .why-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 26px;
+      transition: all var(--transition);
+      backdrop-filter: blur(12px);
+      position: relative; overflow: hidden;
+    }
+    .why-card::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform var(--transition);
+    }
+    .why-card:hover { border-color: rgba(255,213,74,0.4); transform: translateY(-6px); }
+    .why-card:hover::after { transform: scaleX(1); }
+
+    .why-icon {
+      width: 52px; height: 52px;
+      background: rgba(255,213,74,0.1);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; margin-bottom: 18px;
+      border: 1px solid rgba(255,213,74,0.15);
+    }
+    .why-title {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 1rem;
+      margin-bottom: 8px;
+    }
+    .why-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.65; }
+
+    /* ===========================
+       FAQ
+    =========================== */
+    .faq-section { background: var(--bg2); }
+    .faq-list { max-width: 800px; margin: 0 auto; }
+    .faq-item {
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color var(--transition);
+      backdrop-filter: blur(8px);
+      background: var(--glass-bg);
+    }
+    .faq-item.open { border-color: rgba(255,213,74,0.45); }
+
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600; font-size: 0.95rem;
+      transition: color var(--transition);
+      gap: 16px;
+    }
+    .faq-q:hover { color: var(--gold); }
+    .faq-item.open .faq-q { color: var(--gold); }
+
+    .faq-toggle {
+      width: 28px; height: 28px; min-width: 28px;
+      border-radius: 50%;
+      background: rgba(255,213,74,0.1);
+      border: 1px solid rgba(255,213,74,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; color: var(--gold);
+      transition: transform var(--transition), background var(--transition);
+    }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); background: rgba(255,213,74,0.2); }
+
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.4,0,.2,1), padding 0.3s;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+    .faq-a p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+
+    /* ===========================
+       CONTACT
+    =========================== */
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+      align-items: center; max-width: 1000px; margin: 0 auto;
+    }
+    .contact-info .section-title { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .contact-links { display: flex; flex-direction: column; gap: 14px; margin-top: 32px; }
+
+    .contact-link-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 18px 22px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      text-decoration: none; color: var(--text);
+      transition: all var(--transition);
+      backdrop-filter: blur(8px);
+    }
+    .contact-link-item:hover { border-color: var(--gold); transform: translateX(6px); }
+    .contact-icon { font-size: 1.8rem; }
+    .contact-link-item h4 { font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; margin-bottom: 2px; }
+    .contact-link-item p { font-size: 0.8rem; color: var(--muted); }
+
+    .contact-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      backdrop-filter: blur(12px);
+    }
+    .contact-card-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
+    .contact-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800; font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .contact-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; margin-bottom: 24px; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background: #080808;
+      border-top: 1px solid rgba(255,213,74,0.1);
+      padding: 60px 5% 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 48px;
+    }
+    .footer-brand {}
+    .footer-brand .nav-logo { margin-bottom: 14px; display: inline-flex; }
+    .footer-brand p { color: var(--muted); font-size: 0.875rem; line-height: 1.7; max-width: 280px; }
+    .footer-social { display: flex; gap: 12px; margin-top: 24px; }
+    .social-btn {
+      width: 40px; height: 40px;
+      border: 1px solid var(--glass-border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; color: var(--muted);
+      text-decoration: none;
+      transition: all var(--transition);
+      background: var(--glass-bg);
+    }
+    .social-btn:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-3px); }
+
+    .footer-col h5 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700; font-size: 0.9rem;
+      margin-bottom: 20px; color: var(--text);
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a {
+      font-size: 0.85rem; color: var(--muted);
+      text-decoration: none; transition: color var(--transition);
+    }
+    .footer-col ul a:hover { color: var(--gold); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,213,74,0.06);
+      padding-top: 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom p { font-size: 0.82rem; color: var(--muted); }
+    .footer-bottom .heart { color: #ff4d6d; }
+    .footer-bottom .gold { color: var(--gold); }
+    .footer-legal { display: flex; gap: 24px; }
+    .footer-legal a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color var(--transition); }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* ===========================
+       BACK TO TOP
+    =========================== */
+    #back-top {
+      position: fixed; bottom: 32px; right: 32px;
+      width: 48px; height: 48px;
+      background: var(--gold);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: #0D0D0D;
+      cursor: pointer; border: none;
+      box-shadow: 0 8px 30px rgba(255,213,74,0.4);
+      opacity: 0; visibility: hidden;
+      transition: all var(--transition);
+      z-index: 999;
+    }
+    #back-top.visible { opacity: 1; visibility: visible; }
+    #back-top:hover { transform: translateY(-4px); box-shadow: var(--gold-glow); }
+
+    /* ===========================
+       MODAL (Privacy / Terms)
+    =========================== */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: #141414;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      max-width: 600px; width: 100%;
+      max-height: 80vh;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .modal-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 28px;
+      border-bottom: 1px solid rgba(255,213,74,0.1);
+    }
+    .modal-head h3 { font-family: 'Poppins', sans-serif; font-weight: 800; font-size: 1.1rem; }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--glass-bg); border: 1px solid var(--glass-border);
+      cursor: pointer; font-size: 1rem; color: var(--muted);
+      transition: all var(--transition); display: flex; align-items: center; justify-content: center;
+    }
+    .modal-close:hover { color: var(--gold); border-color: var(--gold); }
+    .modal-body {
+      padding: 28px; overflow-y: auto; flex: 1;
+      font-size: 0.875rem; line-height: 1.8; color: var(--muted);
+    }
+    .modal-body h4 { color: var(--text); margin: 18px 0 8px; font-family: 'Poppins', sans-serif; font-weight: 700; font-size: 0.95rem; }
+
+    /* ===========================
+       SCROLL ANIMATIONS
+    =========================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* stagger children */
+    .stagger-children > * { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .stagger-children.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.05s; }
+    .stagger-children.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.12s; }
+    .stagger-children.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.19s; }
+    .stagger-children.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.26s; }
+    .stagger-children.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.33s; }
+    .stagger-children.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.40s; }
+    .stagger-children.visible > *:nth-child(7) { opacity: 1; transform: none; transition-delay: 0.47s; }
+    .stagger-children.visible > *:nth-child(8) { opacity: 1; transform: none; transition-delay: 0.54s; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 1024px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .contact-inner { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      section { padding: 70px 5%; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-legal { justify-content: center; }
+      .hero-stats { gap: 28px; }
+      .contact-inner { gap: 32px; }
+    }
+    @media (max-width: 480px) {
+      .categories-grid { grid-template-columns: 1fr 1fr; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 280px; justify-content: center; }
+      #back-top { bottom: 20px; right: 20px; width: 42px; height: 42px; }
+    }
+
+    /* ===========================
+       REDUCED MOTION
+    =========================== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ======== LOADER ======== -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <p class="loader-text">Loading…</p>
+  </div>
+
+  <!-- ======== BACK TO TOP ======== -->
+  <button id="back-top" aria-label="Back to top">↑</button>
+
+  <!-- ======== MODALS ======== -->
+  <!-- Privacy Policy -->
+  <div class="modal-overlay" id="modal-privacy">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>🔒 Privacy Policy</h3>
+        <button class="modal-close" onclick="closeModal('modal-privacy')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Last updated: January 2026</p>
+        <h4>Information We Collect</h4>
+        <p>Free Study Materials does not collect personally identifiable information unless you voluntarily provide it (e.g., through our Telegram community or feedback form). We may collect anonymised analytics data (page views, device type) to improve our service.</p>
+        <h4>How We Use Information</h4>
+        <p>Any data collected is used solely to improve the quality of our study materials and website experience. We do not sell, trade, or share your data with third parties for marketing purposes.</p>
+        <h4>Cookies</h4>
+        <p>This website uses no third-party tracking cookies. We may use minimal first-party cookies for basic functionality only.</p>
+        <h4>External Links</h4>
+        <p>Our site may link to external platforms (e.g., Telegram, Google Drive). We are not responsible for the privacy practices of these third-party services.</p>
+        <h4>Contact</h4>
+        <p>For privacy-related queries, reach out via our Telegram: @Jageryyyy</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terms of Use -->
+  <div class="modal-overlay" id="modal-terms">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h3>📋 Terms of Use</h3>
+        <button class="modal-close" onclick="closeModal('modal-terms')">✕</button>
+      </div>
+      <div class="modal-body">
+        <p>Last updated: January 2026</p>
+        <h4>Acceptance of Terms</h4>
+        <p>By accessing Free Study Materials, you agree to these Terms of Use. If you disagree, please do not use this site.</p>
+        <h4>Materials Usage</h4>
+        <p>All study materials provided are for personal educational use only. Redistribution, resale, or commercial use without explicit permission is strictly prohibited.</p>
+        <h4>Intellectual Property</h4>
+        <p>All materials are either original content or are shared with the consent of respective owners. We respect intellectual property rights and respond to valid takedown requests.</p>
+        <h4>Disclaimer</h4>
+        <p>Materials are provided "as is" for educational purposes. We make no guarantees regarding accuracy, completeness, or suitability for any particular exam or purpose.</p>
+        <h4>Modifications</h4>
+        <p>We reserve the right to modify these terms at any time. Continued use of the site constitutes acceptance of updated terms.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======== NAV ======== -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <span class="dot"></span>
+      Free<span>Study</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#categories">Categories</a></li>
+      <li><a href="#materials">Materials</a></li>
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://t.me/Jageryyyy" target="_blank" class="nav-cta">🚀 Telegram</a></li>
+    </ul>
+    <div class="nav-hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#categories" onclick="closeMobile()">Categories</a>
+    <a href="#materials" onclick="closeMobile()">Materials</a>
+    <a href="#why" onclick="closeMobile()">Why Us</a>
+    <a href="#faq" onclick="closeMobile()">FAQ</a>
+    <a href="#contact" onclick="closeMobile()">Contact</a>
+    <a href="https://t.me/Jageryyyy" target="_blank" style="color:var(--gold)">🚀 Join Telegram</a>
+  </div>
+
+  <!-- ======== HERO ======== -->
+  <section class="hero" id="home">
+    <div class="hero-blob hero-blob-1"></div>
+    <div class="hero-blob hero-blob-2"></div>
+    <div class="hero-blob hero-blob-3"></div>
+
+    <div class="hero-badge">✦ 100% Free · No Sign-up Required ✦</div>
+
+    <h1>
+      Free <span class="highlight">Study</span><br/>
+      Materials
+    </h1>
+
+    <p class="hero-sub">
+      Download high-quality notes, DPPs, PYQs, books, and practice materials for Physics, Chemistry, Mathematics, and Biology — absolutely free.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#materials" class="btn btn-primary ripple-container" id="browse-btn">
+        📚 Browse Materials
+      </a>
+      <a href="https://t.me/Jageryyyy" target="_blank" class="btn btn-outline ripple-container">
+        🚀 Join Telegram
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num" data-count="500">0</span>
+        <span class="stat-label">Resources Available</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="50">0</span>
+        <span class="stat-label">Chapters Covered</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="10000">0</span>
+        <span class="stat-label">Students Helped</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num" data-count="100">0</span>
+        <span class="stat-label">% Free Always</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== SEARCH ======== -->
+  <div class="search-section" id="search">
+    <div class="search-wrapper reveal">
+      <h2>Find What You Need, <span style="color:var(--gold)">Instantly</span></h2>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search notes, DPPs, books, PYQs…" aria-label="Search study materials" />
+        <button onclick="doSearch()" aria-label="Search">🔍</button>
+      </div>
+      <div class="search-filters">
+        <span class="filter-chip active" onclick="setFilter(this,'all')">All</span>
+        <span class="filter-chip" onclick="setFilter(this,'physics')">⚛️ Physics</span>
+        <span class="filter-chip" onclick="setFilter(this,'chemistry')">🧪 Chemistry</span>
+        <span class="filter-chip" onclick="setFilter(this,'mathematics')">📐 Mathematics</span>
+        <span class="filter-chip" onclick="setFilter(this,'biology')">🌿 Biology</span>
+        <span class="filter-chip" onclick="setFilter(this,'pyq')">📝 PYQs</span>
+        <span class="filter-chip" onclick="setFilter(this,'dpp')">✏️ DPPs</span>
+        <span class="filter-chip" onclick="setFilter(this,'books')">📖 Books</span>
+      </div>
+      <div id="search-results"></div>
+    </div>
+  </div>
+
+  <!-- ======== CATEGORIES ======== -->
+  <section id="categories">
+    <div class="section-header reveal">
+      <p class="section-label">Browse by Subject</p>
+      <h2 class="section-title">All <span>Categories</span></h2>
+      <p class="section-sub">Choose your subject and dive into premium curated content.</p>
+    </div>
+    <div class="categories-grid stagger-children">
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">⚛️</span>
+        <p class="cat-name">Physics</p>
+        <p class="cat-count">120+ resources</p>
+        <span class="cat-tag">JEE · NEET</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">🧪</span>
+        <p class="cat-name">Chemistry</p>
+        <p class="cat-count">110+ resources</p>
+        <span class="cat-tag">Organic · Inorganic</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">📐</span>
+        <p class="cat-name">Mathematics</p>
+        <p class="cat-count">95+ resources</p>
+        <span class="cat-tag">Calculus · Algebra</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">🌿</span>
+        <p class="cat-name">Biology</p>
+        <p class="cat-count">80+ resources</p>
+        <span class="cat-tag">Botany · Zoology</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">📓</span>
+        <p class="cat-name">Notes</p>
+        <p class="cat-count">200+ PDFs</p>
+        <span class="cat-tag">All Subjects</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">📝</span>
+        <p class="cat-name">PYQs</p>
+        <p class="cat-count">15 years coverage</p>
+        <span class="cat-tag">JEE · NEET · Boards</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">✏️</span>
+        <p class="cat-name">DPPs</p>
+        <p class="cat-count">1000+ questions</p>
+        <span class="cat-tag">Daily Practice</span>
+      </a>
+      <a href="#materials" class="category-card">
+        <span class="cat-icon">📚</span>
+        <p class="cat-name">Books</p>
+        <p class="cat-count">40+ premium books</p>
+        <span class="cat-tag">Reference · Guides</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ======== FEATURED MATERIALS ======== -->
+  <section id="materials" class="featured-section">
+    <div class="section-header reveal">
+      <p class="section-label">Top Picks</p>
+      <h2 class="section-title">Featured <span>Materials</span></h2>
+      <p class="section-sub">Hand-picked, high-quality resources trusted by thousands of students.</p>
+    </div>
+    <div class="materials-grid stagger-children">
+
+      <!-- Card 1 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-physics">
+          <span class="thumb-icon">⚛️</span>
+          <span class="material-badge">NEW</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">Physics</p>
+          <h3 class="material-title">Complete Mechanics — Notes + DPPs</h3>
+          <p class="material-desc">Comprehensive handwritten-style notes covering kinematics, Newton's laws, work-energy, rotational motion, and more.</p>
+          <div class="material-meta">
+            <span>📄 84 pages</span>
+            <span>📦 12 MB</span>
+            <span>⭐ 4.9</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-chem">
+          <span class="thumb-icon">🧪</span>
+          <span class="material-badge">HOT</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">Chemistry</p>
+          <h3 class="material-title">Organic Chemistry Reactions Cheatsheet</h3>
+          <p class="material-desc">All named reactions, mechanisms, and tricks in one beautifully formatted PDF. A must-have for JEE & NEET aspirants.</p>
+          <div class="material-meta">
+            <span>📄 56 pages</span>
+            <span>📦 8 MB</span>
+            <span>⭐ 4.8</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-math">
+          <span class="thumb-icon">📐</span>
+          <span class="material-badge">POPULAR</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">Mathematics</p>
+          <h3 class="material-title">Calculus Master Class — Notes & Problems</h3>
+          <p class="material-desc">Limits, derivatives, integration, and applications — explained simply with 500+ solved problems and exam shortcuts.</p>
+          <div class="material-meta">
+            <span>📄 120 pages</span>
+            <span>📦 16 MB</span>
+            <span>⭐ 5.0</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-bio">
+          <span class="thumb-icon">🌿</span>
+          <span class="material-badge">FREE</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">Biology</p>
+          <h3 class="material-title">NEET Biology — Chapter-wise Notes</h3>
+          <p class="material-desc">Complete chapter-wise notes covering all NCERT topics with diagrams, tables, and high-yield NEET facts.</p>
+          <div class="material-meta">
+            <span>📄 200 pages</span>
+            <span>📦 22 MB</span>
+            <span>⭐ 4.9</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-pyq">
+          <span class="thumb-icon">📝</span>
+          <span class="material-badge">NEW</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">PYQs</p>
+          <h3 class="material-title">JEE Main PYQs 2015–2025 (All Shifts)</h3>
+          <p class="material-desc">Full collection of JEE Main previous year questions with detailed solutions, trend analysis, and topic-wise split.</p>
+          <div class="material-meta">
+            <span>📄 400 pages</span>
+            <span>📦 35 MB</span>
+            <span>⭐ 5.0</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="material-card">
+        <div class="material-thumb thumb-dpp">
+          <span class="thumb-icon">✏️</span>
+          <span class="material-badge">HOT</span>
+          <div class="thumb-overlay"><span style="font-size:2rem;color:var(--gold)">⬇</span></div>
+        </div>
+        <div class="material-body">
+          <p class="material-subject">DPPs</p>
+          <h3 class="material-title">100-Day JEE/NEET DPP Challenge Pack</h3>
+          <p class="material-desc">Structured 100-day daily practice problem sets covering all three subjects. Level up your problem-solving systematically.</p>
+          <div class="material-meta">
+            <span>📄 300 pages</span>
+            <span>📦 28 MB</span>
+            <span>⭐ 4.9</span>
+          </div>
+          <a href="https://t.me/Jageryyyy" target="_blank" class="btn-download ripple-container">⬇ Download Free</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div style="text-align:center; margin-top:52px;">
+      <a href="https://t.me/Jageryyyy" target="_blank" class="btn btn-outline ripple-container" style="display:inline-flex;">
+        📥 View All Materials on Telegram →
+      </a>
+    </div>
+  </section>
+
+  <!-- ======== WHY CHOOSE US ======== -->
+  <section id="why">
+    <div class="section-header reveal">
+      <p class="section-label">Our Promise</p>
+      <h2 class="section-title">Why <span>Choose Us?</span></h2>
+      <p class="section-sub">We believe quality education should be accessible to every student — without any paywall.</p>
+    </div>
+    <div class="why-grid stagger-children">
+      <div class="why-card">
+        <div class="why-icon">🆓</div>
+        <h3 class="why-title">100% Free</h3>
+        <p class="why-desc">Every resource on this platform is completely free. No subscriptions, no hidden fees, no paywalls — ever.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">⚡</div>
+        <h3 class="why-title">Fast Downloads</h3>
+        <p class="why-desc">Direct download links with no wait timers, no CAPTCHA loops. Get your files instantly, every time.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔄</div>
+        <h3 class="why-title">Regular Updates</h3>
+        <p class="why-desc">Materials are updated regularly to match the latest syllabus, exam patterns, and question trends.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📱</div>
+        <h3 class="why-title">Mobile Friendly</h3>
+        <p class="why-desc">Study anywhere, anytime. Our PDFs are optimised for mobile viewing without sacrificing quality.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🚫</div>
+        <h3 class="why-title">Zero Ads</h3>
+        <p class="why-desc">No annoying pop-ups or distracting ads. A clean, focused experience so you can study without interruptions.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📄</div>
+        <h3 class="why-title">High Quality PDFs</h3>
+        <p class="why-desc">Crisp, clearly formatted PDFs with proper structure, diagrams, and solved examples — not blurry scans.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FAQ ======== -->
+  <section id="faq" class="faq-section">
+    <div class="section-header reveal" style="text-align:center; max-width:700px; margin:0 auto 60px;">
+      <p class="section-label">Got Questions?</p>
+      <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Are all study materials really free?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>Yes, absolutely. Every single PDF, DPP, notes file, and book available here is 100% free to download. We believe quality education should never be locked behind a paywall, and we intend to keep it that way.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Where do I find the materials?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>All materials are shared through our official Telegram channels — @Jageryyyy and @Jageryyyy2. Join the channels to access and download files directly. The Telegram app is free on Android, iOS, and desktop.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Which exams are these materials useful for?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>Our materials are curated primarily for JEE Main, JEE Advanced, NEET UG, and Class 11–12 Board exams. However, the notes and DPPs are also beneficial for KVPY, Olympiads, and state-level competitive exams.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          How often are new materials uploaded?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>We upload new resources multiple times each week. Our Telegram channels are the best way to stay updated in real time. Turn on notifications so you never miss a new upload.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Can I request specific materials?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>Yes! Drop a message or a request in our Telegram community. We take requests seriously and prioritise materials that multiple students are looking for. Community feedback drives our upload schedule.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFAQ(this)">
+          Are there any ads on this site?
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-a"><p>No. This website is completely ad-free. We keep things clean and distraction-free so you can focus entirely on finding and downloading what you need.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CONTACT ======== -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <p class="section-label">Get in Touch</p>
+        <h2 class="section-title">Join Our <span>Community</span></h2>
+        <p class="section-sub">Have a question, request, or feedback? We're active on Telegram daily. Come say hi.</p>
+        <div class="contact-links">
+          <a href="https://t.me/Jageryyyy" target="_blank" class="contact-link-item">
+            <span class="contact-icon">✈️</span>
+            <div>
+              <h4>Telegram Channel</h4>
+              <p>@Jageryyyy — Main study materials channel</p>
+            </div>
+          </a>
+          <a href="https://t.me/Jageryyyy2" target="_blank" class="contact-link-item">
+            <span class="contact-icon">📢</span>
+            <div>
+              <h4>Backup Channel</h4>
+              <p>@Jageryyyy2 — Updates & community discussion</p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-card reveal" style="transition-delay:0.15s">
+        <span class="contact-card-icon">💬</span>
+        <h3>Share Your Feedback</h3>
+        <p>Help us improve by sharing what resources you need, what's helpful, or what we can do better. Every message matters.</p>
+        <a href="https://t.me/Jageryyyy" target="_blank" class="btn btn-primary ripple-container" style="display:inline-flex; margin-bottom:14px; width:100%; justify-content:center;">
+          📬 Send Feedback
+        </a>
+        <a href="https://t.me/Jageryyyy" target="_blank" class="btn btn-outline ripple-container" style="display:inline-flex; width:100%; justify-content:center;">
+          🚀 Join Community
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#" class="nav-logo" style="margin-bottom:16px; display:inline-flex;">
+          <span class="dot"></span>
+          Free<span>Study</span>
+        </a>
+        <p>Premium study materials for every student — completely free, always updated, no ads. Join thousands of aspirants already benefiting.</p>
+        <div class="footer-social">
+          <a href="https://t.me/Jageryyyy" target="_blank" class="social-btn" aria-label="Telegram">✈️</a>
+          <a href="https://t.me/Jageryyyy2" target="_blank" class="social-btn" aria-label="Telegram 2">📢</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Subjects</h5>
+        <ul>
+          <li><a href="#categories">⚛️ Physics</a></li>
+          <li><a href="#categories">🧪 Chemistry</a></li>
+          <li><a href="#categories">📐 Mathematics</a></li>
+          <li><a href="#categories">🌿 Biology</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Resources</h5>
+        <ul>
+          <li><a href="#materials">📓 Notes</a></li>
+          <li><a href="#materials">📝 PYQs</a></li>
+          <li><a href="#materials">✏️ DPPs</a></li>
+          <li><a href="#materials">📚 Books</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Links</h5>
+        <ul>
+          <li><a href="#why">Why Choose Us</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="https://t.me/Jageryyyy" target="_blank">Telegram</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Developed with <span class="heart">❤️</span> by <span class="gold">@Jageryyyy · @Jageryyyy2</span> &nbsp;·&nbsp; Copyright © 2026 Free Study Materials. All rights reserved.</p>
+      <div class="footer-legal">
+        <a href="#" onclick="openModal('modal-privacy'); return false;">Privacy Policy</a>
+        <a href="#" onclick="openModal('modal-terms'); return false;">Terms of Use</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======== JAVASCRIPT ======== -->
+  <script>
+    /* ---- Loader ---- */
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        document.getElementById('loader').classList.add('hidden');
+      }, 900);
+    });
+
+    /* ---- Nav scroll ---- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    /* ---- Hamburger ---- */
+    const ham = document.getElementById('hamburger');
+    const mMenu = document.getElementById('mobile-menu');
+    ham.addEventListener('click', () => {
+      ham.classList.toggle('open');
+      mMenu.classList.toggle('open');
+      document.body.style.overflow = mMenu.classList.contains('open') ? 'hidden' : '';
+    });
+    function closeMobile() {
+      ham.classList.remove('open');
+      mMenu.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    /* ---- Back to top ---- */
+    const backTop = document.getElementById('back-top');
+    window.addEventListener('scroll', () => {
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ---- Ripple effect ---- */
+    document.querySelectorAll('.ripple-container').forEach(el => {
+      el.addEventListener('click', e => {
+        const r = document.createElement('span');
+        r.classList.add('ripple');
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        r.style.cssText = `width:${size}px;height:${size}px;top:${e.clientY-rect.top-size/2}px;left:${e.clientX-rect.left-size/2}px`;
+        el.appendChild(r);
+        setTimeout(() => r.remove(), 600);
+      });
+    });
+
+    /* ---- Scroll reveal ---- */
+    const reveals = document.querySelectorAll('.reveal, .stagger-children');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => io.observe(el));
+
+    /* ---- Counter animation ---- */
+    const counters = document.querySelectorAll('[data-count]');
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = +el.dataset.count;
+        const duration = 1800;
+        const step = target / (duration / 16);
+        let cur = 0;
+        const suffix = target === 100 ? '%' : target >= 1000 ? '+' : '+';
+        const timer = setInterval(() => {
+          cur = Math.min(cur + step, target);
+          el.textContent = target >= 1000 ? Math.floor(cur/1000)*1000 >= target ? target.toLocaleString()+suffix : Math.floor(cur).toLocaleString()+suffix : Math.floor(cur)+suffix;
+          if (cur >= target) clearInterval(timer);
+        }, 16);
+        cio.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => cio.observe(c));
+
+    /* ---- FAQ accordion ---- */
+    function toggleFAQ(el) {
+      const item = el.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    /* ---- Search ---- */
+    const allMaterials = [
+      { title: 'Complete Mechanics — Notes + DPPs', subject: 'physics', type: 'notes', pages: 84 },
+      { title: 'Electrostatics & Capacitance Notes', subject: 'physics', type: 'notes', pages: 60 },
+      { title: 'Waves & Sound DPP Set', subject: 'physics', type: 'dpp', pages: 30 },
+      { title: 'Modern Physics PYQs', subject: 'physics', type: 'pyq', pages: 45 },
+      { title: 'Organic Chemistry Reactions Cheatsheet', subject: 'chemistry', type: 'notes', pages: 56 },
+      { title: 'Inorganic Chemistry NCERT Notes', subject: 'chemistry', type: 'notes', pages: 80 },
+      { title: 'Physical Chemistry DPPs', subject: 'chemistry', type: 'dpp', pages: 40 },
+      { title: 'Chemistry PYQs 2015–2025', subject: 'chemistry', type: 'pyq', pages: 120 },
+      { title: 'Calculus Master Class — Notes & Problems', subject: 'mathematics', type: 'notes', pages: 120 },
+      { title: 'Coordinate Geometry Shortcuts', subject: 'mathematics', type: 'notes', pages: 55 },
+      { title: 'Algebra & Sequences DPP Pack', subject: 'mathematics', type: 'dpp', pages: 35 },
+      { title: 'JEE Math PYQs (Chapter-wise)', subject: 'mathematics', type: 'pyq', pages: 160 },
+      { title: 'NEET Biology Chapter-wise Notes', subject: 'biology', type: 'notes', pages: 200 },
+      { title: 'Genetics & Evolution Notes', subject: 'biology', type: 'notes', pages: 65 },
+      { title: 'Biology DPPs — NEET 2026', subject: 'biology', type: 'dpp', pages: 50 },
+      { title: 'JEE Main PYQs 2015–2025 (All Shifts)', subject: 'physics', type: 'pyq', pages: 400 },
+      { title: '100-Day JEE/NEET DPP Challenge Pack', subject: 'all', type: 'dpp', pages: 300 },
+      { title: 'H.C. Verma Concepts PDF', subject: 'physics', type: 'books', pages: 480 },
+      { title: 'NCERT Exemplar Problems — All Subjects', subject: 'all', type: 'books', pages: 560 },
+    ];
+
+    let activeFilter = 'all';
+    function setFilter(el, filter) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      activeFilter = filter;
+      const q = document.getElementById('search-input').value.trim();
+      if (q.length > 0) renderResults(q);
+    }
+
+    function doSearch() {
+      const q = document.getElementById('search-input').value.trim();
+      renderResults(q);
+    }
+
+    function renderResults(q) {
+      const box = document.getElementById('search-results');
+      box.style.display = 'block';
+      if (q.length < 1) { box.innerHTML = ''; box.style.display = 'none'; return; }
+      const filtered = allMaterials.filter(m => {
+        const matchQ = m.title.toLowerCase().includes(q.toLowerCase());
+        const matchF = activeFilter === 'all' || m.subject === activeFilter || m.type === activeFilter;
+        return matchQ && matchF;
+      });
+      if (filtered.length === 0) {
+        box.innerHTML = '<p class="no-results">No results found. Try a different keyword or filter.</p>';
+        return;
+      }
+      const icons = { physics:'⚛️', chemistry:'🧪', mathematics:'📐', biology:'🌿', all:'📚' };
+      box.innerHTML = filtered.map(m => `
+        <div class="search-result-item" onclick="window.open('https://t.me/Jageryyyy','_blank')">
+          <span class="icon">${icons[m.subject] || '📄'}</span>
+          <div class="info">
+            <h4>${m.title}</h4>
+            <p>${m.subject.charAt(0).toUpperCase()+m.subject.slice(1)} · ${m.type.toUpperCase()} · ${m.pages} pages</p>
+          </div>
+          <span style="color:var(--gold);font-size:1.1rem;margin-left:auto">⬇</span>
+        </div>`).join('');
+    }
+
+    document.getElementById('search-input').addEventListener('keydown', e => { if (e.key === 'Enter') doSearch(); });
+    document.getElementById('search-input').addEventListener('input', e => {
+      const q = e.target.value.trim();
+      if (q.length >= 2) renderResults(q);
+      else { document.getElementById('search-results').style.display = 'none'; }
+    });
+
+    /* ---- Modals ---- */
+    function openModal(id) { document.getElementById(id).classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeModal(id) { document.getElementById(id).classList.remove('open'); document.body.style.overflow = ''; }
+    document.querySelectorAll('.modal-overlay').forEach(m => {
+      m.addEventListener('click', e => { if (e.target === m) closeModal(m.id); });
+    });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') document.querySelectorAll('.modal-overlay.open').forEach(m => closeModal(m.id));
+    });
+  </script>
+</body>
+</html>
